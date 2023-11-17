@@ -152,13 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0248101c1998c1f4e8c646559f108841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crewNameText: {fileID: 0}
-  hobbyText: {fileID: 0}
+  crewNameText: {fileID: 1782899552}
+  hobbyText: {fileID: 246178314}
   crewPrefab: {fileID: 2623807960872917714, guid: df28eb2118ea78744bc6cef87ac89b7a, type: 3}
   crewCount: 3
   crewSpawnPoint: {fileID: 975244586}
   spacing: 2
   isParasite: 0
+  textDisplay: {fileID: 0}
   crewNameList: []
   crewHobbyList: []
   parasiteHobbyList: []
@@ -190,6 +191,7 @@ GameObject:
   - component: {fileID: 242114413}
   - component: {fileID: 242114412}
   - component: {fileID: 242114411}
+  - component: {fileID: 242114415}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -283,6 +285,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &242114415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242114410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55765a9835e3a5548a362893f0319645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crewNameText: {fileID: 1782899552}
+  crewHobbyText: {fileID: 246178314}
+  parasiteHobbyText: {fileID: 246178314}
 --- !u!1 &246178312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,7 +1263,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -251, y: 169}
+  m_AnchoredPosition: {x: -309, y: 169}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1782899552

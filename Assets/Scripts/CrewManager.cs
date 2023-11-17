@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class CrewManager : MonoBehaviour
 {
@@ -15,7 +16,10 @@ public class CrewManager : MonoBehaviour
     public Transform crewSpawnPoint;
     public float spacing = 2.0f;
     public int isParasite = 0;
-    
+    public TextDisplay textDisplay;
+
+
+
 
     //You have hired 0 crewmates
     //Create new crewmate
@@ -68,6 +72,7 @@ public class CrewManager : MonoBehaviour
         crewNameList.AddRange(new List<string> {"Bob", "Charlie", "Pom"} );
         crewHobbyList.AddRange(new List<string> { "Soccer", "Video Games", "Hockey" });
         parasiteHobbyList.AddRange(new List<string> { "Evil Soccer", "Boring Video Games", "Slippery Hockey" });
+       
 
 
         for (int i = 0; i < 3; i++)
@@ -75,8 +80,8 @@ public class CrewManager : MonoBehaviour
             Vector3 spawnPosition = crewSpawnPoint.position + new Vector3(i * spacing, 0, 0);
             SpawnCrewPrefab(spawnPosition);
         }
-       
-
+        NewGame(); 
+        
         
     }
 
@@ -115,7 +120,7 @@ public class CrewManager : MonoBehaviour
             { 
             crewScript.parasiteHobby = parasiteHobbyList[UnityEngine.Random.Range(0, parasiteHobbyList.Count)];
             }
-
+            
 
             
           
@@ -124,7 +129,27 @@ public class CrewManager : MonoBehaviour
         else {
             Debug.Log("No Crew Script found on " + crewPrefabClone.name);
         }
-        
+
+        //if (crewNameText != null)
+       // {
+            //textDisplay.AddText(crewNameText);
+            //crewNameList.Add(crewName);
+            //crewHobbyList.Add(crewHobby);
+            //parasiteHobbyList.Add (parasiteHobby);
+
+       // }
+       
 
     }
+    private void NewGame()
+    {
+        NewTurn();
+    }
+
+    private void NewTurn()
+    {
+     
+
+    }
+
 }
