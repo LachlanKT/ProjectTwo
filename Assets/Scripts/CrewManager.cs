@@ -13,10 +13,26 @@ public class CrewManager : MonoBehaviour
     public GameObject crewPrefab;
     public int crewCount = 10;
 
-    public Transform crewSpawnPoint;
-    public float spacing = 2.0f;
-    public int isParasite = 0;
+    
     public TextDisplay textDisplay;
+
+
+    public List<string> crewNameList = new List<string>();
+    public List<string> crewHobbyList = new List<string>();
+    public List<string> parasiteHobbyList = new List<string>();
+    public string crewName;
+    public string crewHobby;
+    public int isParasite;
+    
+
+    private Crew CrewCurrentClass;
+    private GameObject crewPrefabClone;
+    private Crew crewScript;
+
+    public UnityEngine.UI.Button addCrewmateButton;
+    public UnityEngine.UI.Button declineCrewmateButton;
+    public UnityEngine.UI.Button newCrewmateButton;
+
 
 
 
@@ -61,25 +77,20 @@ public class CrewManager : MonoBehaviour
     // Start is called before the first frame update
     // Start is called before the first frame update
 
-    public List<string> crewNameList = new List<string>();
-    public List<string> crewHobbyList = new List<string>();
-    public List<string> parasiteHobbyList = new List<string>();
+
 
     public List<Crew> crewList = new List<Crew>();
     
     void Start()
     {
-        crewNameList.AddRange(new List<string> {"Bob", "Charlie", "Pom"} );
-        crewHobbyList.AddRange(new List<string> { "Soccer", "Video Games", "Hockey" });
-        parasiteHobbyList.AddRange(new List<string> { "Evil Soccer", "Boring Video Games", "Slippery Hockey" });
-       
+        newCrewmateButton.enabled = false;
+        addCrewmateButton.enabled = false;
+        declineCrewmateButton.enabled = false;
+        
 
 
-        for (int i = 0; i < 3; i++)
-        {
-            Vector3 spawnPosition = crewSpawnPoint.position + new Vector3(i * spacing, 0, 0);
-            SpawnCrewPrefab(spawnPosition);
-        }
+
+
         NewGame(); 
         
         
@@ -92,55 +103,9 @@ public class CrewManager : MonoBehaviour
     {
         
     }
-    void SpawnCrewPrefab(Vector3 position)
-
-    {
-
-        GameObject crewPrefabClone = Instantiate(crewPrefab, position, Quaternion.identity);
-        Crew crewScript = crewPrefabClone.GetComponent<Crew>();
-        isParasite = UnityEngine.Random.Range(0, 2);
-        
-        if (crewScript != null)
-        {
-            crewList.Add(crewScript);
-            crewScript.crewName = crewNameList[UnityEngine.Random.Range(0, crewNameList.Count)];
-
-
-            crewNameList.Remove(crewScript.crewName);
-            crewPrefabClone.name = crewScript.crewName;
-
-
-
-            if (isParasite == 0)
-            {
-                crewScript.crewHobby = crewHobbyList[UnityEngine.Random.Range(0, crewHobbyList.Count)];
-                crewHobbyList.Remove(crewScript.crewHobby);
-            }
-            else 
-            { 
-            crewScript.parasiteHobby = parasiteHobbyList[UnityEngine.Random.Range(0, parasiteHobbyList.Count)];
-            }
-            
-
-            
-          
-
-        }
-        else {
-            Debug.Log("No Crew Script found on " + crewPrefabClone.name);
-        }
-
-        //if (crewNameText != null)
-       // {
-            //textDisplay.AddText(crewNameText);
-            //crewNameList.Add(crewName);
-            //crewHobbyList.Add(crewHobby);
-            //parasiteHobbyList.Add (parasiteHobby);
-
-       // }
        
 
-    }
+    
     private void NewGame()
     {
         NewTurn();
@@ -148,8 +113,60 @@ public class CrewManager : MonoBehaviour
 
     private void NewTurn()
     {
-     
-
+        newCrewmateButton.enabled = true;
+        addCrewmateButton.enabled = false;
+        declineCrewmateButton.enabled = false;
+        
+    }
+    public void NewCrewmateButtonClick()
+    {
+        crewPrefabClone = Instantiate(crewPrefab);
+        crewScript = crewPrefabClone.GetComponent<Crew>();
+        CrewCurrentClass.SpawnCrewPrefab();
+        if (crewScript != null)
+        {
+            crewName = crewScript.GetName();
+            crewHobby = crewScript.GetHobby();
+        }
+        if (textDisplay != null)
+        {
+            textDisplay.AddNameText(crewName);
+            textDisplay.AddHobbyText(crewHobby);
+        }
+        newCrewmateButton.enabled = false;
+        addCrewmateButton.enabled = true;
+        declineCrewmateButton.enabled = true;
     }
 
+
+
+
+
+
+
+
+
+    public void AddCrewMateCLick()
+    {
+        declineCrewmateButton.enabled = false;
+
+        if (crewNameList != null)
+        { 
+        crewNameList.Add(crewName);
+            crewHobbyList.Add(crewHobby);
+
+        }
+    }
+
+
+
+
+    private void Parasite()
+    { 
+    isParasite = crewScript.IsParasite();
+        if (isParasite >= 1)
+        {
+            string victimHobby = crewScript.crewHobbyList[UnityEngine.Random.Range(0, crewScript.crewHobbyList.Count)];
+        }
+    }
 }
